@@ -9,8 +9,9 @@
         <module name="admin-microservice" />
         <module name="appointment-microservice" />
         <module name="rating-microservice" />
-        <module name="user-microservice" />
         <module name="discovery-service" />
+        <module name="user-microservice" />
+        <module name="gateway-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +20,7 @@
       <module name="admin-microservice" options="-parameters" />
       <module name="appointment-microservice" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
+      <module name="gateway-service" options="-parameters" />
       <module name="rating-microservice" options="-parameters" />
       <module name="user-microservice" options="-parameters" />
     </option>

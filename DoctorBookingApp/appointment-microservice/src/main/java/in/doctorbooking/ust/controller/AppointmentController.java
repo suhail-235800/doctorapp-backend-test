@@ -26,7 +26,7 @@ public class AppointmentController {
     DoctorService doctorService;
     private Logger logger = LoggerFactory.getLogger(AppointmentController.class);
 
-    @GetMapping()
+    @GetMapping("")
     public ResponseEntity<List<AppointmentDto>> getAppointments(){
         List<Appointment> list = appointmentService.findAllAppointments();
         if(list.isEmpty()){
@@ -39,7 +39,7 @@ public class AppointmentController {
         return ResponseEntity.ok(AppointmentList);
 
     }
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity<AppointmentDto> bookAppointment(@RequestBody RequestDto requestDto){
         var doctordto = doctorService.getDoctorById(requestDto.doctorId());
         logger.info(String.valueOf(doctordto));

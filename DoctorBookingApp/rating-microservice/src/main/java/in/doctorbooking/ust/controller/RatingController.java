@@ -24,7 +24,7 @@ public class RatingController {
     @Autowired
     AppointmentService appointmentService;
 
-    @GetMapping()
+    @GetMapping("")
     public ResponseEntity<List<RatingDto>> getAll(){
         List<Rating> list = ratingService.getAll();
         if(list.isEmpty()){
@@ -37,7 +37,7 @@ public class RatingController {
         return ResponseEntity.ok(ratingList);
     }
 
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity<RatingDto> giveRating(@RequestBody RequestDto requestDto){
         var appointmentDto = appointmentService.getAppointment(requestDto.appointmentId());
         if(appointmentDto == null){
