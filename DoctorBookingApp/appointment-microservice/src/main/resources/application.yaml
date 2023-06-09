@@ -1,0 +1,35 @@
+server:
+  port: 8100
+spring:
+  application:
+    name: appointment-service
+  datasource:
+    url: jdbc:h2:mem:doctorsapp
+    username: root
+    password: root
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      settings:
+        trace: false
+        web-allow-others: false
+  main:
+    allow-circular-references: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    instance:
+      prefer-ip-address: true
+
+logging:
+  level:
+    root: info

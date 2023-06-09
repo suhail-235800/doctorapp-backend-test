@@ -1,0 +1,33 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /doctorapp
+
+spring:
+  application:
+    name: gateway-service
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: books-service
+          uri: lb://APPOINTMENT-SERVICE
+          predicates:
+            - Path=api/v1/appointments/**
+            - Method=GET,POST
+        - id: authors-service
+          uri: lb://RATING-SERVICE
+          predicates:
+            - Path=/api/v1/ratings/**
+            - Method=GET,POST
+        - id: authors-service
+          uri: lb://ADMIN-SERVICE
+          predicates:
+            - Path=/api/v1/admin/**
+            - Method=GET,POST,PUT,DELETE
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
