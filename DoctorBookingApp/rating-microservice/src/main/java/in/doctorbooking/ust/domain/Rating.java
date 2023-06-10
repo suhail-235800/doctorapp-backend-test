@@ -1,5 +1,8 @@
 package in.doctorbooking.ust.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,10 +21,16 @@ public class Rating {
     @Id
     private int ratingId;
     private int rating;
+    private String review;
+
     private int doctorId;
     private String doctorName;
     private int appointmentId;
-    private String appointmentDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate appointmentDate;
+
     private int userId;
 
 

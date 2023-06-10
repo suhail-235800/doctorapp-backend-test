@@ -1,6 +1,5 @@
 package in.doctorbooking.ust.service;
 
-import in.doctorbooking.ust.domain.Appointment;
 import in.doctorbooking.ust.domain.Rating;
 import in.doctorbooking.ust.exceptions.RatingNotFoundException;
 import in.doctorbooking.ust.repository.RatingRepository;

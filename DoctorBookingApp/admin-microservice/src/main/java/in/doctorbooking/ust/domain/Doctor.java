@@ -16,7 +16,7 @@ public class Doctor
     private String doctorName;
     private String doctorSpecialization;
     private String doctorLocation;
-
+    private int doctorRating;
     public String getDoctorName() {
         return doctorName;
     }
@@ -52,11 +52,20 @@ public class Doctor
 
     }
 
-    public Doctor(int doctorId, String doctorName, String doctorSpecialization, String doctorLocation) {
+    public int getDoctorRating() {
+        return doctorRating;
+    }
+
+    public void setDoctorRating(int doctorRating) {
+        this.doctorRating = doctorRating;
+    }
+
+    public Doctor(int doctorId, String doctorName, String doctorSpecialization, String doctorLocation, int doctorRating) {
         this.doctorId = doctorId;
         this.doctorName = doctorName;
         this.doctorSpecialization = doctorSpecialization;
         this.doctorLocation = doctorLocation;
+        this.doctorRating = doctorRating;
     }
 
     @Override
@@ -66,6 +75,7 @@ public class Doctor
                 ", doctorName='" + doctorName + '\'' +
                 ", doctorSpecialization='" + doctorSpecialization + '\'' +
                 ", doctorLocation='" + doctorLocation + '\'' +
+                ", doctorRating=" + doctorRating +
                 '}';
     }
 }

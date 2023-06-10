@@ -4,5 +4,6 @@ public record DoctorDto(
         int doctorId,
         String doctorName,
         String doctorSpecialization,
-        String doctorLocation) {
+        String doctorLocation,
+        int doctorRating) {
 }

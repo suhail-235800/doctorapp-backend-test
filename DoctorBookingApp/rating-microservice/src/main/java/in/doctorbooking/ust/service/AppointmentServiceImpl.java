@@ -1,12 +1,8 @@
 package in.doctorbooking.ust.service;
 
-import in.doctorbooking.ust.domain.Appointment;
 import in.doctorbooking.ust.dto.AppointmentDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Optional;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService{

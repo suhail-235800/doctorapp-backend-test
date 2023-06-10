@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/admin")
+@CrossOrigin("*")
 public class AdminController {
 
     //Add/Update/Delete/View Doctors
@@ -88,11 +89,11 @@ public class AdminController {
     }
 
     public DoctorDto convertToDto(Doctor doctor){
-        return new DoctorDto(doctor.getDoctorId(),doctor.getDoctorName(),doctor.getDoctorSpecialization(), doctor.getDoctorLocation());
+        return new DoctorDto(doctor.getDoctorId(),doctor.getDoctorName(),doctor.getDoctorSpecialization(), doctor.getDoctorLocation(),doctor.getDoctorRating());
     }
 
     public Doctor convertToEntity(DoctorDto doctorDto){
-        return new Doctor(doctorDto.doctorId(),doctorDto.doctorName(),doctorDto.doctorSpecialization(),doctorDto.doctorLocation());
+        return new Doctor(doctorDto.doctorId(),doctorDto.doctorName(),doctorDto.doctorSpecialization(),doctorDto.doctorLocation(),doctorDto.doctorRating());
     }
 
 

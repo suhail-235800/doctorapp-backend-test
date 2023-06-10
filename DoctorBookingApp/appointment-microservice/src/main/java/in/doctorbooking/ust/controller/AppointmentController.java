@@ -1,5 +1,9 @@
 package in.doctorbooking.ust.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import in.doctorbooking.ust.domain.Appointment;
 import in.doctorbooking.ust.dto.AppointmentDto;
 import in.doctorbooking.ust.dto.RequestDto;
@@ -12,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.time.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,26 +32,31 @@ public class AppointmentController {
     DoctorService doctorService;
     private Logger logger = LoggerFactory.getLogger(AppointmentController.class);
 
+
+// ...
+
     @GetMapping("")
-    public ResponseEntity<List<AppointmentDto>> getAppointments(){
+    public ResponseEntity<List<AppointmentDto>> getAppointments() {
         List<Appointment> list = appointmentService.findAllAppointments();
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-        List<AppointmentDto> AppointmentList = list.stream()
+
+        List<AppointmentDto> appointmentList = list.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(AppointmentList);
-
+        return ResponseEntity.ok(appointmentList);
     }
+
+
     @PostMapping("")
     public ResponseEntity<AppointmentDto> bookAppointment(@RequestBody RequestDto requestDto){
         var doctordto = doctorService.getDoctorById(requestDto.doctorId());
-        logger.info(String.valueOf(doctordto));
         if(doctordto == null){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
+
         Appointment appointment = new Appointment();
         appointment.setAppointmentDate(requestDto.appointmentDate());
         appointment.setAppointmentTime(requestDto.appointmentTime());
@@ -54,9 +65,11 @@ public class AppointmentController {
         appointment.setDoctorSpeciality(doctordto.doctorSpecialization());
         appointment.setDoctorLocation(doctordto.doctorLocation());
         appointment.setUserId(0);
-        appointmentService.saveAppointment(appointment);
-        return ResponseEntity.ok(convertToDto(appointment));
 
+        appointmentService.saveAppointment(appointment);
+
+        AppointmentDto appointmentDto = convertToDto(appointment);
+        return ResponseEntity.ok(appointmentDto);
     }
 
     @GetMapping("/{id}")

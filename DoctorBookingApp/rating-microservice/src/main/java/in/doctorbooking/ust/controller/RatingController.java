@@ -1,6 +1,5 @@
 package in.doctorbooking.ust.controller;
 
-import in.doctorbooking.ust.domain.Appointment;
 import in.doctorbooking.ust.domain.Rating;
 import in.doctorbooking.ust.dto.RatingDto;
 import in.doctorbooking.ust.dto.RequestDto;
@@ -47,6 +46,7 @@ public class RatingController {
         rating.setAppointmentDate(appointmentDto.appointmentDate());
         rating.setAppointmentId(appointmentDto.appointmentId());
         rating.setRating(requestDto.rating());
+        rating.setReview(requestDto.review());
         rating.setDoctorId(appointmentDto.doctorId());
         rating.setDoctorName(appointmentDto.doctorName());
         rating.setUserId(appointmentDto.userId());
@@ -59,7 +59,7 @@ public class RatingController {
 
 
     public RatingDto convertToDto(Rating rating){
-        return new RatingDto(rating.getRatingId(),rating.getRating(),rating.getDoctorId()
+        return new RatingDto(rating.getRatingId(),rating.getRating(),rating.getReview(),rating.getDoctorId()
                 ,rating.getDoctorName(),rating.getAppointmentId(),rating.getAppointmentDate(),rating.getUserId());
     }
 }
