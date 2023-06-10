@@ -3,6 +3,7 @@ package in.doctorbooking.ust.domain;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 public class Doctor
 {
     @Id
+    @GeneratedValue
     private int doctorId;
     private String doctorName;
     private String doctorSpecialization;

@@ -2,6 +2,7 @@ package in.doctorbooking.ust.controller;
 
 import in.doctorbooking.ust.domain.Doctor;
 import in.doctorbooking.ust.dto.DoctorDto;
+import in.doctorbooking.ust.dto.RequestDto;
 import in.doctorbooking.ust.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +29,9 @@ public class AdminController {
     }
 
     @PostMapping("")
-    public ResponseEntity<DoctorDto> addNewDoctor(@RequestBody DoctorDto doctorDto) {
+    public ResponseEntity<DoctorDto> addNewDoctor(@RequestBody RequestDto doctorDto) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(convertToDto(adminService.save(convertToEntity(doctorDto))));
+        return ResponseEntity.status(HttpStatus.CREATED).body(convertToDto(adminService.save(convertRequestToEntity(doctorDto,0))));
 
     }
 
@@ -69,12 +70,12 @@ public class AdminController {
     }
 
     @PutMapping("/{doctorName}")
-    public ResponseEntity<DoctorDto> updateDoctor(@PathVariable String doctorName,@RequestBody DoctorDto doctorDto){
+    public ResponseEntity<DoctorDto> updateDoctor(@PathVariable String doctorName,@RequestBody RequestDto doctorDto){
         Optional<Doctor> newdoctor = Optional.of(adminService.findDoctorByName(doctorName));
         if(newdoctor.isEmpty()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).body(convertToDto(adminService.updateDoctor(convertToEntity(doctorDto))));
+        return ResponseEntity.status(HttpStatus.OK).body(convertToDto(adminService.updateDoctor(convertRequestToEntity(doctorDto,newdoctor.get().getDoctorId()))));
 
     }
 
@@ -89,11 +90,14 @@ public class AdminController {
     }
 
     public DoctorDto convertToDto(Doctor doctor){
-        return new DoctorDto(doctor.getDoctorId(),doctor.getDoctorName(),doctor.getDoctorSpecialization(), doctor.getDoctorLocation(),doctor.getDoctorRating());
+        return new DoctorDto(doctor.getDoctorId(),doctor.getDoctorName(),doctor.getDoctorSpecialization(),doctor.getDoctorLocation(),doctor.getDoctorRating());
     }
 
     public Doctor convertToEntity(DoctorDto doctorDto){
         return new Doctor(doctorDto.doctorId(),doctorDto.doctorName(),doctorDto.doctorSpecialization(),doctorDto.doctorLocation(),doctorDto.doctorRating());
+    }
+    public Doctor convertRequestToEntity(RequestDto doctorDto,int id){
+        return new Doctor(id,doctorDto.doctorName(),doctorDto.doctorSpecialization(),doctorDto.doctorLocation(),doctorDto.doctorRating());
     }
 
 
