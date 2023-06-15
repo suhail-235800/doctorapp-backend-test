@@ -9,6 +9,7 @@ import in.doctorbooking.ust.dto.AppointmentDto;
 import in.doctorbooking.ust.dto.RequestDto;
 import in.doctorbooking.ust.service.AppointmentService;
 import in.doctorbooking.ust.service.DoctorService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,6 @@ public class AppointmentController {
     @GetMapping("")
     public ResponseEntity<List<AppointmentDto>> getAppointments() {
         List<Appointment> list = appointmentService.findAllAppointments();
-        if (list.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-
         List<AppointmentDto> appointmentList = list.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
@@ -53,8 +50,12 @@ public class AppointmentController {
     @PostMapping("")
     public ResponseEntity<AppointmentDto> bookAppointment(@RequestBody RequestDto requestDto){
         var doctordto = doctorService.getDoctorById(requestDto.doctorId());
+        final var exist = appointmentService.getDoctorAppointmentsBydateandtime(requestDto.doctorId(),requestDto.appointmentDate(),requestDto.appointmentTime());
         if(doctordto == null){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        if(exist!=null){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
         Appointment appointment = new Appointment();

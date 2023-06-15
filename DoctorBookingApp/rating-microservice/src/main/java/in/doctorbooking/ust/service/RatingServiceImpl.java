@@ -12,20 +12,25 @@ import java.util.Optional;
 @Service
 public class RatingServiceImpl implements RatingService{
 
-    @Autowired
-    RatingRepository ratingRepository;
+
+    private RatingRepository ratingRepository;
+
+    public RatingServiceImpl(RatingRepository ratingRepository) {
+        this.ratingRepository = ratingRepository;
+    }
 
     @Override
     public List<Rating> getAll() {
-        Optional<List<Rating>> test = Optional.of(ratingRepository.findAll());
-        if(test.isEmpty()){
-            throw new RatingNotFoundException();
+        List<Rating> test = ratingRepository.findAll();
+        if(test.isEmpty()||test==null){
+            throw new RatingNotFoundException("No ratings found");
         }
-        return test.get();
+        return test;
     }
 
     @Override
     public Rating saveRating(Rating rating) {
         return ratingRepository.save(rating);
     }
+
 }

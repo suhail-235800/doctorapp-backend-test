@@ -2,16 +2,18 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="rating-microservice" />
+        <module name="gateway-service" />
+        <module name="security-service" />
         <module name="admin-microservice" />
         <module name="appointment-microservice" />
-        <module name="rating-microservice" />
         <module name="discovery-service" />
         <module name="user-microservice" />
-        <module name="gateway-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -22,6 +24,7 @@
       <module name="discovery-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="rating-microservice" options="-parameters" />
+      <module name="security-service" options="-parameters" />
       <module name="user-microservice" options="-parameters" />
     </option>
   </component>

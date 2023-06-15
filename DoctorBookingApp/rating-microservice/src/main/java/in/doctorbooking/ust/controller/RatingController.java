@@ -17,18 +17,18 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/ratings")
 public class RatingController {
 
-    @Autowired
-    RatingService ratingService;
+    private RatingService ratingService;
 
     @Autowired
     AppointmentService appointmentService;
 
+    public RatingController(RatingService ratingService) {
+        this.ratingService = ratingService;
+    }
+
     @GetMapping("")
     public ResponseEntity<List<RatingDto>> getAll(){
         List<Rating> list = ratingService.getAll();
-        if(list.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
         List<RatingDto> ratingList = list.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
@@ -62,4 +62,5 @@ public class RatingController {
         return new RatingDto(rating.getRatingId(),rating.getRating(),rating.getReview(),rating.getDoctorId()
                 ,rating.getDoctorName(),rating.getAppointmentId(),rating.getAppointmentDate(),rating.getUserId());
     }
+
 }

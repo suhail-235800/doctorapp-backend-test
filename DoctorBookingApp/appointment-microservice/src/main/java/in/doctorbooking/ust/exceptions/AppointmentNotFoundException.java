@@ -1,15 +1,8 @@
 package in.doctorbooking.ust.exceptions;
 
 public class AppointmentNotFoundException extends RuntimeException {
-    private String uri;
-    public AppointmentNotFoundException(){}
-
-    public AppointmentNotFoundException(String movieNotFound, String toUriString) {
-        super(movieNotFound);
-        this.uri = uri;
+    public AppointmentNotFoundException(String message){
+        super(message);
     }
 
-    public String getUri(){
-        return uri;
-    }
 }

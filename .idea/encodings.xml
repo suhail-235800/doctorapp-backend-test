@@ -6,6 +6,8 @@
     <file url="file://$PROJECT_DIR$/DoctorBookingApp/discovery-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/DoctorBookingApp/gateway-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/DoctorBookingApp/rating-microservice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DoctorBookingApp/security-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DoctorBookingApp/security-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/DoctorBookingApp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/DoctorBookingApp/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/DoctorBookingApp/user-microservice/src/main/java" charset="UTF-8" />
