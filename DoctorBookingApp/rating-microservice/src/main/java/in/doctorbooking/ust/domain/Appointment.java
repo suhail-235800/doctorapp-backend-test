@@ -12,11 +12,10 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Entity
-@Data
+
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "appointments")
 public class Appointment {
 
     @Id

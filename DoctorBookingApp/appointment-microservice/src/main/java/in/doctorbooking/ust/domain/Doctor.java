@@ -6,11 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
-@Entity
+
 public class Doctor
 {
-    @Id
+
     private int doctorId;
     private String doctorName;
     private String doctorSpecialization;
