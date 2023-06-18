@@ -11,21 +11,21 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.10</version>
+        <version>3.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <modules>
         <module>admin-microservice</module>
         <module>appointment-microservice</module>
-        <module>user-microservice</module>
+  
         <module>discovery-service</module>
         <module>rating-microservice</module>
         <module>gateway-service</module>
+        <module>security-service</module>
     </modules>
     <properties>
         <java.version>17</java.version>
-        <spring-cloud.version>2021.0.7</spring-cloud.version>
-        <springdoc.version>1.7.0</springdoc.version>
+        <spring-cloud.version>2022.0.3</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
@@ -33,16 +33,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>${springdoc.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-data-rest</artifactId>
-            <version>${springdoc.version}</version>
-        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+
 
     </dependencies>
     <dependencyManagement>

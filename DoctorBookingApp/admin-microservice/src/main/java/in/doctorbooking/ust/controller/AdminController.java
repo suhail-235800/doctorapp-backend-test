@@ -4,13 +4,13 @@ import in.doctorbooking.ust.domain.Doctor;
 import in.doctorbooking.ust.dto.DoctorDto;
 import in.doctorbooking.ust.dto.RequestDto;
 import in.doctorbooking.ust.service.AdminService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

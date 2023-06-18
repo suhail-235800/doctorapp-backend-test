@@ -6,32 +6,64 @@ server:
 spring:
   application:
     name: gateway-service
-#  main:
-#    web-application-type: reactive
+  #  main:
+  #    web-application-type: reactive
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - HEAD
+              - OPTIONS
+              - PUT
+            allowedHeaders: "*"
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+        - AddResponseHeader=Access-Control-Allow-Origin, *
       routes:
         - id: appointment-service
           uri: lb://APPOINTMENT-SERVICE
           predicates:
             - Path=/doctorapp/api/v1/appointments
-            - Method=GET,POST
+            - Method=GET,POST,OPTIONS
           filters:
             - RewritePath=/doctorapp/api/v1/appointments, /api/v1/appointments
+            - name: UserTokenFilter
+              args:
+                tokenHeaderName: X-User-Token
         - id: rating-service
           uri: lb://RATING-SERVICE
           predicates:
             - Path=/doctorapp/api/v1/ratings
-            - Method=GET,POST
+            - Method=GET,POST,OPTIONS
           filters:
             - RewritePath=/doctorapp/api/v1/ratings, /api/v1/ratings
+            - name: UserTokenFilter
+              args:
+                tokenHeaderName: X-User-Token
         - id: admin-service
           uri: lb://ADMIN-SERVICE
           predicates:
             - Path=/doctorapp/api/v1/admin
-            - Method=GET,POST,PUT,DELETE
+            - Method=GET,POST,PUT,DELETE,OPTIONS
           filters:
             - RewritePath=/doctorapp/api/v1/admin, /api/v1/admin
+            - name: UserTokenFilter
+              args:
+                tokenHeaderName: X-User-Token
+        - id: security-service
+          uri: lb://SECURITY-SERVICE
+          predicates:
+            - Path=/doctorapp/api/auth/authenticate
+            - Method=POST, OPTIONS
+          #            - Header=Authorization, Bearer (.*)
+          filters:
+            - RewritePath=/doctorapp/api/auth/authenticate, /api/auth/authenticate
 
 eureka:
   instance:
