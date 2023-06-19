@@ -4,8 +4,9 @@ package in.doctorbooking.ust.exceptions.advice;
 import in.doctorbooking.ust.exceptions.RatingNotFoundException;
 import in.doctorbooking.ust.exceptions.dto.ApiError;
 import in.doctorbooking.ust.exceptions.dto.ApiValidationError;
-import jakarta.validation.ConstraintViolationException;
+
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;

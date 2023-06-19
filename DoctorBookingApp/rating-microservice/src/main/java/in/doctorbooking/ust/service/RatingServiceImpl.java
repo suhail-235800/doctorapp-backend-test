@@ -3,11 +3,9 @@ package in.doctorbooking.ust.service;
 import in.doctorbooking.ust.domain.Rating;
 import in.doctorbooking.ust.exceptions.RatingNotFoundException;
 import in.doctorbooking.ust.repository.RatingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RatingServiceImpl implements RatingService{
@@ -31,6 +29,16 @@ public class RatingServiceImpl implements RatingService{
     @Override
     public Rating saveRating(Rating rating) {
         return ratingRepository.save(rating);
+    }
+
+    @Override
+    public Double getReviewByDoctor(Integer doctorId) {
+        List<Rating> list = ratingRepository.findByDoctorId(doctorId);
+        double averageRating = list.stream()
+                .mapToDouble(Rating::getRating)
+                .average()
+                .orElse(0.0);
+        return averageRating;
     }
 
 }

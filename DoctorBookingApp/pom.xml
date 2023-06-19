@@ -17,7 +17,6 @@
     <modules>
         <module>admin-microservice</module>
         <module>appointment-microservice</module>
-  
         <module>discovery-service</module>
         <module>rating-microservice</module>
         <module>gateway-service</module>

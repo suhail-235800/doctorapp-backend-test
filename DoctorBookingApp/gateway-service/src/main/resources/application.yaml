@@ -21,7 +21,9 @@ spring:
               - HEAD
               - OPTIONS
               - PUT
-            allowedHeaders: "*"
+            allowedHeaders:
+              - "*"
+              - "Authorization"
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
         - AddResponseHeader=Access-Control-Allow-Origin, *
@@ -51,6 +53,7 @@ spring:
           predicates:
             - Path=/doctorapp/api/v1/admin
             - Method=GET,POST,PUT,DELETE,OPTIONS
+#            - Header=Authorization, Bearer (.*)
           filters:
             - RewritePath=/doctorapp/api/v1/admin, /api/v1/admin
             - name: UserTokenFilter
@@ -61,7 +64,6 @@ spring:
           predicates:
             - Path=/doctorapp/api/auth/authenticate
             - Method=POST, OPTIONS
-          #            - Header=Authorization, Bearer (.*)
           filters:
             - RewritePath=/doctorapp/api/auth/authenticate, /api/auth/authenticate
 

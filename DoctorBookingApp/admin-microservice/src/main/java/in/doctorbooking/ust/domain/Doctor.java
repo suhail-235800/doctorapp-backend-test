@@ -23,10 +23,10 @@ public class Doctor
     private String doctorName;
     private String doctorSpecialization;
     private String doctorLocation;
-    private int doctorRating;
+    private double doctorRating;
 
 
-    public Doctor(int doctorId, String doctorName, String doctorSpecialization, String doctorLocation, int doctorRating) {
+    public Doctor(int doctorId, String doctorName, String doctorSpecialization, String doctorLocation, double doctorRating) {
         this.doctorId = doctorId;
         this.doctorName = doctorName;
         this.doctorSpecialization = doctorSpecialization;

@@ -1,6 +1,6 @@
 package in.doctorbooking.ust.dto;
 
-public record RequestDto(
+public record DoctorRequestDto(
         int doctorId,
         String doctorName,
         String doctorSpecialization,

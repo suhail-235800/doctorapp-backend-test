@@ -1,9 +1,12 @@
 package in.doctorbooking.ust.controller;
 
 import in.doctorbooking.ust.domain.Rating;
+import in.doctorbooking.ust.dto.DoctorDto;
+import in.doctorbooking.ust.dto.DoctorRequestDto;
 import in.doctorbooking.ust.dto.RatingDto;
 import in.doctorbooking.ust.dto.RequestDto;
 import in.doctorbooking.ust.service.AppointmentService;
+import in.doctorbooking.ust.service.DoctorService;
 import in.doctorbooking.ust.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,13 +20,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/ratings")
 public class RatingController {
 
-    private RatingService ratingService;
+    private final RatingService ratingService;
 
-    @Autowired
-    AppointmentService appointmentService;
+    private final AppointmentService appointmentService;
 
-    public RatingController(RatingService ratingService) {
+    private final DoctorService doctorService;
+
+    public RatingController(RatingService ratingService,AppointmentService appointmentService,DoctorService doctorService) {
         this.ratingService = ratingService;
+        this.appointmentService=appointmentService;
+        this.doctorService=doctorService;
     }
 
     @GetMapping("")
@@ -42,6 +48,11 @@ public class RatingController {
         if(appointmentDto == null){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
+        var updatedRating = ((ratingService.getReviewByDoctor(appointmentDto.doctorId()))+requestDto.rating())/2;
+
+        DoctorRequestDto dto = new DoctorRequestDto(appointmentDto.doctorId(),appointmentDto.doctorName(),appointmentDto.doctorSpeciality(),appointmentDto.doctorLocation(),updatedRating);
+        doctorService.setDoctor(dto,appointmentDto.doctorName());
+
         Rating rating = new Rating();
         rating.setAppointmentDate(appointmentDto.appointmentDate());
         rating.setAppointmentId(appointmentDto.appointmentId());
@@ -52,6 +63,8 @@ public class RatingController {
         rating.setUserId(appointmentDto.userId());
 
         ratingService.saveRating(rating);
+
+
 
         return ResponseEntity.status(HttpStatus.OK).body(convertToDto(rating));
 
