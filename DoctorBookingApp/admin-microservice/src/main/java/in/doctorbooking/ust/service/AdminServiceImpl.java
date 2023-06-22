@@ -34,12 +34,12 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public Doctor findDoctorByName(String doctorName) {
-        Optional<Doctor> test = Optional.of(doctorRepository.findByDoctorName(doctorName));
+    public List<Doctor> findByDoctorName(String doctorName) {
+        List<Doctor> test = doctorRepository.findByDoctorName(doctorName);
         if(test.isEmpty()){
-            throw new DoctorNotFoundException("Cannot find the doctor with name " + doctorName);
+            throw new DoctorNotFoundException("No doctor by name:"+doctorName);
         }
-        return test.get();
+        return test;
     }
 
     @Override
@@ -50,6 +50,51 @@ public class AdminServiceImpl implements AdminService{
         }
         return doctorRepository.save(test);
 
+    }
+
+    @Override
+    public List<Doctor> getDoctorByNameAndSpec(String doctorName, String doctorSpecialization) {
+        final var test = doctorRepository.findByDoctorNameAndDoctorSpecialization(doctorName,doctorSpecialization);
+        if(test.isEmpty()){
+            throw new DoctorNotFoundException("no doctors found with that name and specialization:");
+        }
+        return test;
+    }
+
+    @Override
+    public List<Doctor> getDoctorByNameAndLoc(String doctorName, String doctorLocation) {
+        final var test = doctorRepository.findByDoctorNameAndDoctorLocation(doctorName,doctorLocation);
+        if(test.isEmpty()){
+            throw new DoctorNotFoundException("no doctors found with that name");
+        }
+        return test;
+    }
+
+    @Override
+    public List<Doctor> getDoctorByLocation(String doctorLocation) {
+        List<Doctor> test = doctorRepository.findByDoctorLocation(doctorLocation);
+        if(test.isEmpty()){
+            throw new DoctorNotFoundException("No doctor found in location: "+doctorLocation);
+        }
+        return test;
+    }
+
+    @Override
+    public List<Doctor> getDoctorByNameAndLocAndSpec(String doctorName, String doctorLocation, String doctorSpecialization) {
+        final var test = doctorRepository.findByDoctorNameAndDoctorLocationAndDoctorSpecialization(doctorName,doctorLocation,doctorSpecialization);
+        if(test.isEmpty()){
+            throw new DoctorNotFoundException("no doctors found with that name");
+        }
+        return test;
+    }
+
+    @Override
+    public List<Doctor> getDoctorByLocAndSpec(String doctorLocation, String doctorSpecialization) {
+        final var test = doctorRepository.findByDoctorLocationAndDoctorSpecialization(doctorLocation,doctorSpecialization);
+        if(test.isEmpty()){
+            throw new DoctorNotFoundException("no doctors found with that name and specialization:");
+        }
+        return test;
     }
 
 
