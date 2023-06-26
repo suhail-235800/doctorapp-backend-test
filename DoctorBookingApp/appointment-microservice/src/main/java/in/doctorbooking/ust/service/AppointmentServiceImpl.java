@@ -55,6 +55,23 @@ public class AppointmentServiceImpl implements AppointmentService{
         }
     }
 
+    @Override
+    public List<Appointment> findAppointmentsByUserId(int userId) {
+        var list = appointmentRepository.findByUserId(userId);
+        if(list.isEmpty()){
+            throw new AppointmentNotFoundException("Appointment not found with userId:"+userId);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Appointment> findAppointmentsByDoctorName(String doctorName) {
+        var list = appointmentRepository.findByDoctorName(doctorName);
+        if(list.isEmpty()){
+            throw new AppointmentNotFoundException("Appointment not found with doctorName"+doctorName);
+        }
+        return list;
+    }
 
 
 }

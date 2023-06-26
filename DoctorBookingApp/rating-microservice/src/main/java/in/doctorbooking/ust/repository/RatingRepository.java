@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface RatingRepository extends JpaRepository<Rating,Integer> {
 
-    List<Rating> findByDoctorId(Integer doctorId);
+    List<Rating> findByDoctorId(int doctorId);
+    List<Rating> findByUserId(int userId);
 }

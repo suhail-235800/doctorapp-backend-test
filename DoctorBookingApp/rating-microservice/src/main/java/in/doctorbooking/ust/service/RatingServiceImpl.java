@@ -41,4 +41,13 @@ public class RatingServiceImpl implements RatingService{
         return averageRating;
     }
 
+    @Override
+    public List<Rating> getRatingById(int id) {
+        List<Rating> list = ratingRepository.findByUserId(id);
+        if(list.isEmpty()){
+            throw new RatingNotFoundException("No ratings found");
+        }
+        return list;
+    }
+
 }

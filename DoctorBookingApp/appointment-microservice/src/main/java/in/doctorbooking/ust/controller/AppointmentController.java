@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.time.*;
+import java.time.chrono.ChronoLocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/appointments")
+@CrossOrigin("*")
 public class AppointmentController {
 
     @Autowired
@@ -50,7 +52,11 @@ public class AppointmentController {
     @PostMapping("")
     public ResponseEntity<AppointmentDto> bookAppointment(@RequestBody RequestDto requestDto){
         var doctordto = doctorService.getDoctorById(requestDto.doctorId());
-        final var exist = appointmentService.getDoctorAppointmentsBydateandtime(requestDto.doctorId(),requestDto.appointmentDate(),requestDto.appointmentTime());
+
+        LocalDate date = LocalDate.parse(requestDto.appointmentDate());
+        LocalTime time = LocalTime.parse(requestDto.appointmentTime());
+
+        final var exist = appointmentService.getDoctorAppointmentsBydateandtime(requestDto.doctorId(),date,time);
         if(doctordto == null){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
@@ -59,11 +65,15 @@ public class AppointmentController {
         }
 
         Appointment appointment = new Appointment();
-        appointment.setAppointmentDate(requestDto.appointmentDate());
-        appointment.setAppointmentTime(requestDto.appointmentTime());
+
+        appointment.setAppointmentDate(date);
+
+
+        appointment.setAppointmentTime(time);
+
         appointment.setDoctorId(doctordto.doctorId());
         appointment.setDoctorName(doctordto.doctorName());
-        appointment.setDoctorSpeciality(doctordto.doctorSpecialization());
+        appointment.setDoctorSpecialization(doctordto.doctorSpecialization());
         appointment.setDoctorLocation(doctordto.doctorLocation());
         appointment.setUserId(0);
 
@@ -80,12 +90,31 @@ public class AppointmentController {
 
     }
 
+    @GetMapping("/userId/{userId}")
+    public ResponseEntity<List<AppointmentDto>> getAppointmentByUserId(@PathVariable int userId){
+        List<Appointment> list = appointmentService.findAppointmentsByUserId(userId);
+        List<AppointmentDto> appointmentList = list.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(appointmentList);
+    }
+    @GetMapping("/doctorName/{doctorName}")
+    public ResponseEntity<List<AppointmentDto>> getAppointmentByDoctorName(@PathVariable String doctorName){
+        List<Appointment> list = appointmentService.findAppointmentsByDoctorName(doctorName);
+        List<AppointmentDto> appointmentList = list.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(appointmentList);
+    }
+
 
     public AppointmentDto convertToDto(Appointment appointment){
-        return new AppointmentDto(appointment.getAppointmentId(),appointment.getAppointmentDate(),appointment.getAppointmentTime(),appointment.getDoctorId(),appointment.getDoctorName(),appointment.getDoctorSpeciality(),appointment.getDoctorLocation(),appointment.getUserId());
+        return new AppointmentDto(appointment.getAppointmentId(),appointment.getAppointmentDate(),appointment.getAppointmentTime(),appointment.getDoctorId(),appointment.getDoctorName(),appointment.getDoctorSpecialization(),appointment.getDoctorLocation(),appointment.getUserId());
     }
     public Appointment convertToEntity(AppointmentDto dto){
-        return new Appointment(dto.appointmentId(),dto.appointmentDate(),dto.appointmentTime(),dto.doctorId(),dto.doctorName(),dto.doctorSpeciality(),dto.doctorLocation(),dto.userId());
+        return new Appointment(dto.appointmentId(),dto.appointmentDate(),dto.appointmentTime(),dto.doctorId(),dto.doctorName(),dto.doctorSpecialization(),dto.doctorLocation(),dto.userId());
     }
 
 }

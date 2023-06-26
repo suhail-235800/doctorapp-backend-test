@@ -9,4 +9,5 @@ public interface RatingService {
     Rating saveRating(Rating rating);
     Double getReviewByDoctor(Integer doctorId);
 
+    List<Rating> getRatingById(int id);
 }

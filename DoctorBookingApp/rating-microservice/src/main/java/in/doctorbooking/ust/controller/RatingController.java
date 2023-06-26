@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/ratings")
+@CrossOrigin("*")
 public class RatingController {
 
     private final RatingService ratingService;
@@ -42,6 +43,16 @@ public class RatingController {
         return ResponseEntity.ok(ratingList);
     }
 
+    @GetMapping("/userid/{id}")
+    public ResponseEntity<List<RatingDto>> getRatingById(@PathVariable int id){
+        List<Rating> list = ratingService.getRatingById(id);
+        List<RatingDto> ratingList = list.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(ratingList);
+    }
+
     @PostMapping("")
     public ResponseEntity<RatingDto> giveRating(@RequestBody RequestDto requestDto){
         var appointmentDto = appointmentService.getAppointment(requestDto.appointmentId());
@@ -50,16 +61,20 @@ public class RatingController {
         }
         var updatedRating = ((ratingService.getReviewByDoctor(appointmentDto.doctorId()))+requestDto.rating())/2;
 
-        DoctorRequestDto dto = new DoctorRequestDto(appointmentDto.doctorId(),appointmentDto.doctorName(),appointmentDto.doctorSpeciality(),appointmentDto.doctorLocation(),updatedRating);
-        doctorService.setDoctor(dto,appointmentDto.doctorName());
+        DoctorRequestDto dto = new DoctorRequestDto(appointmentDto.doctorId(),appointmentDto.doctorName(),appointmentDto.doctorSpecialization(),appointmentDto.doctorLocation(),updatedRating);
+        doctorService.setDoctor(dto,appointmentDto.doctorId());
 
         Rating rating = new Rating();
         rating.setAppointmentDate(appointmentDto.appointmentDate());
+        rating.setAppointmentTime(appointmentDto.appointmentTime());
         rating.setAppointmentId(appointmentDto.appointmentId());
         rating.setRating(requestDto.rating());
         rating.setReview(requestDto.review());
         rating.setDoctorId(appointmentDto.doctorId());
         rating.setDoctorName(appointmentDto.doctorName());
+        rating.setDoctorSpecialization(appointmentDto.doctorSpecialization());
+        rating.setDoctorLocation(appointmentDto.doctorLocation());
+
         rating.setUserId(appointmentDto.userId());
 
         ratingService.saveRating(rating);
@@ -73,7 +88,7 @@ public class RatingController {
 
     public RatingDto convertToDto(Rating rating){
         return new RatingDto(rating.getRatingId(),rating.getRating(),rating.getReview(),rating.getDoctorId()
-                ,rating.getDoctorName(),rating.getAppointmentId(),rating.getAppointmentDate(),rating.getUserId());
+                ,rating.getDoctorName(), rating.getDoctorSpecialization(), rating.getDoctorLocation(), rating.getAppointmentId(),rating.getAppointmentDate(),rating.getAppointmentTime(),rating.getUserId());
     }
 
 }

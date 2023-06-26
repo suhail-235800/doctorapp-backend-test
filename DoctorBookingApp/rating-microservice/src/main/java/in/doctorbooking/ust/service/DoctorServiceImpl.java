@@ -21,8 +21,8 @@ public class DoctorServiceImpl implements DoctorService{
 
 
     @Override
-    public void setDoctor(DoctorRequestDto dto, String s) {
-        String url = "http://ADMIN-SERVICE/api/v1/admin/"+s;
+    public void setDoctor(DoctorRequestDto dto, int id) {
+        String url = "http://ADMIN-SERVICE/api/v1/admin/id/"+id;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<DoctorRequestDto> entity = new HttpEntity<>(dto, headers);

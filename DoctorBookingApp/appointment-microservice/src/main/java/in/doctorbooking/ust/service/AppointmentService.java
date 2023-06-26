@@ -14,4 +14,8 @@ public interface AppointmentService {
     Appointment getAppointmentById(int id);
 
     Appointment getDoctorAppointmentsBydateandtime(int i, LocalDate localDate, LocalTime localTime);
+
+    List<Appointment> findAppointmentsByUserId(int userId);
+
+    List<Appointment> findAppointmentsByDoctorName(String doctorName);
 }

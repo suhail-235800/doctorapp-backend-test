@@ -50,7 +50,7 @@ class AppointmentControllerTest {
         appointment.setAppointmentTime(LocalTime.of(0, 0, 0));
         appointment.setDoctorId(0);
         appointment.setDoctorName("doctorName");
-        appointment.setDoctorSpeciality("doctorSpeciality");
+        appointment.setDoctorSpecialization("doctorSpeciality");
         appointment.setDoctorLocation("doctorLocation");
         appointment.setUserId(0);
         List<Appointment> appointments = new ArrayList<Appointment>();
@@ -95,7 +95,7 @@ class AppointmentControllerTest {
         appointment.setAppointmentTime(LocalTime.of(0, 0, 0));
         appointment.setDoctorId(0);
         appointment.setDoctorName("doctorName");
-        appointment.setDoctorSpeciality("doctorSpeciality");
+        appointment.setDoctorSpecialization("doctorSpeciality");
         appointment.setDoctorLocation("doctorLocation");
         appointment.setUserId(0);
         when(mockAppointmentService.getDoctorAppointmentsBydateandtime(0, LocalDate.of(2020, 1, 1),
@@ -127,7 +127,7 @@ class AppointmentControllerTest {
         appointment.setAppointmentTime(LocalTime.of(0, 0, 0));
         appointment.setDoctorId(0);
         appointment.setDoctorName("doctorName");
-        appointment.setDoctorSpeciality("doctorSpeciality");
+        appointment.setDoctorSpecialization("doctorSpeciality");
         appointment.setDoctorLocation("doctorLocation");
         appointment.setUserId(0);
         when(mockAppointmentService.getDoctorAppointmentsBydateandtime(0, LocalDate.of(2020, 1, 1),
@@ -180,7 +180,7 @@ class AppointmentControllerTest {
         appointment.setAppointmentTime(LocalTime.of(0, 0, 0));
         appointment.setDoctorId(0);
         appointment.setDoctorName("doctorName");
-        appointment.setDoctorSpeciality("doctorSpeciality");
+        appointment.setDoctorSpecialization("doctorSpeciality");
         appointment.setDoctorLocation("doctorLocation");
         appointment.setUserId(0);
         when(mockAppointmentService.getAppointmentById(0)).thenReturn(appointment);

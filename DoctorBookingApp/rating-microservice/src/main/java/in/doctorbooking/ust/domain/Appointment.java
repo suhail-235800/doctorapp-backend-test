@@ -23,13 +23,13 @@ public class Appointment {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate appointmentDate;
 
-    @JsonFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "HH:mm")
     @JsonDeserialize(using = LocalTimeDeserializer.class)
     private LocalTime appointmentTime;
 
     private int doctorId;
     private String doctorName;
-    private String doctorSpeciality;
+    private String doctorSpecialization;
     private String doctorLocation;
     private int userId;
 
@@ -41,7 +41,7 @@ public class Appointment {
                 ", appointmentTime=" + appointmentTime +
                 ", doctorId=" + doctorId +
                 ", doctorName='" + doctorName + '\'' +
-                ", doctorSpeciality='" + doctorSpeciality + '\'' +
+                ", doctorSpeciality='" + doctorSpecialization + '\'' +
                 ", doctorLocation='" + doctorLocation + '\'' +
                 ", userId=" + userId +
                 '}';

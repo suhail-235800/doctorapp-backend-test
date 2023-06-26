@@ -13,12 +13,12 @@ public record AppointmentDto (int appointmentId,
                               @JsonFormat(pattern = "yyyy-MM-dd")
                               @JsonDeserialize(using = LocalDateDeserializer.class)
                               LocalDate appointmentDate,
-                              @JsonFormat(pattern = "HH:mm:ss")
+                              @JsonFormat(pattern = "HH:mm")
                               @JsonDeserialize(using = LocalTimeDeserializer.class)
                               LocalTime appointmentTime,
                               int doctorId,
                               String doctorName,
-                              String doctorSpeciality,
+                              String doctorSpecialization,
                               String doctorLocation,
                               int userId){
 }

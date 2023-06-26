@@ -5,5 +5,5 @@ import in.doctorbooking.ust.dto.DoctorRequestDto;
 
 public interface DoctorService {
 
-    void setDoctor(DoctorRequestDto dto, String s);
+    void setDoctor(DoctorRequestDto dto, int id);
 }
